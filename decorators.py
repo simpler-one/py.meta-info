@@ -5,14 +5,19 @@ _TEMPORARY_STORE = {}
 
 
 def class_info(store, info):
-    def decorator(cls):
+    st = _get_store(store)
         
+    def decorator(cls):
+        if isinstance(store, str):
+            setattr(cls, store, st)
+            _TEMPORARY_STORE.delete(store)
         return cls
     return decorator
 
 
 def member_info(store, info):
     st = _get_store(store)
+
     def decorator(member):
         st.member_info[member.__name__] = info
         return member
