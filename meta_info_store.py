@@ -1,0 +1,2 @@
+class MetaInfoStore:
+    pass
