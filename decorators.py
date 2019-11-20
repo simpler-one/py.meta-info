@@ -4,11 +4,9 @@ _TEMPORARY_STORE = {}
 """ :type: typing.Dict[str, MetaInfoStore] """
 
 
-def class_info(store, info):
-    st = _get_store(store)
-        
+def class_info(store, info, use_internal):
     def decorator(cls):
-        if isinstance(store, str):
+        if use_internal:
             setattr(cls, store, st)
             _TEMPORARY_STORE.delete(store)
         return cls
@@ -16,8 +14,6 @@ def class_info(store, info):
 
 
 def member_info(store, info):
-    st = _get_store(store)
-
     def decorator(member):
         st.member_info[member.__name__] = info
         return member
