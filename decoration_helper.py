@@ -18,8 +18,9 @@ class DecorationHelper(Generic[C, M]):
     def get_store(self, cls):
         return getattr(cls, self.name, None)
     
-    def class_info(self, info, on_complete):
-        return class_info(store, info, self.on_complete)
+    def class_info(self, info):
+        self._store.class = info
+        return class_info(self.on_complete)
 
     def member_info(self, info):
         return member_info(store, info)
