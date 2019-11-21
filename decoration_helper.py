@@ -1,18 +1,22 @@
+from typing import TypeVar, Generic
 from decorators import class_info, member_info
 from meta_info_store import MetaInfoStore
+
+C = TypeVar("C")
+M = TypeVar("M")
 
 
 def nop(*_): pass
 
 
-class DecorationHelper:
+class DecorationHelper(Generic[C, M]):
     def __init__(self, name, on_complete=nop):
         self._name = name
-        self._store = MetaInfoStore()
+        self._store = MetaInfoStore[C, M]()
         self._complete_callback = on_complete
 
     def get_store(self, cls):
-        return getattr(cls, seelf.name, None)
+        return getattr(cls, self.name, None)
     
     def class_info(self, info, on_complete):
         return class_info(store, info, self.on_complete)
