@@ -1,10 +1,10 @@
 from typing import TypeVar, Generic, Dict
 
 C = TypeVar("C")
-P = TypeVar("P")
+M = TypeVar("M")
 
 
-class MetaInfoStore(Generic[C, P]):
+class MetaInfoStore(Generic[C, M]):
     def __init__(self):
-        self.cls_info: C = None
-        self.prop_info: Dict[str, P] = {}
+        self.class: C = None
+        self.members: Dict[str, M] = {}
