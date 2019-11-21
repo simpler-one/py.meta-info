@@ -11,6 +11,7 @@ class DecorationHelper:
         return getattr(cls, seelf.name, None)
     
     def class_info(self, info):
-        return class_info(store, info)
+        return class_info(store, info, True)
 
     def member_info(self, info):
+        return member_info(store, info)
