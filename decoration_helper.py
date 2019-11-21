@@ -23,7 +23,7 @@ class DecorationHelper(Generic[C, M]):
         return class_info(self.on_complete)
 
     def member_info(self, info):
-        return member_info(store, info)
+        return member_info(self._store, info)
 
     def _on_complete(self, cls):
         store = self._store
