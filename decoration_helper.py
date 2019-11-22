@@ -1,19 +1,15 @@
 from typing import TypeVar, Generic
-from decorators import class_info, member_info
+from decorators import class_info, member_info, 
 from meta_info_store import MetaInfoStore
 
 C = TypeVar("C")
 M = TypeVar("M")
 
 
-def nop(*_): pass
-
-
 class DecorationHelper(Generic[C, M]):
-    def __init__(self, name, on_complete=nop):
+    def __init__(self, name):
         self._name = name
         self._store = MetaInfoStore[C, M]()
-        self._complete_callback = on_complete
 
     def get_store(self, cls):
         return getattr(cls, self.name, None)
@@ -29,4 +25,5 @@ class DecorationHelper(Generic[C, M]):
         store = self._store
         setattr(cls, self._name, store)
         self._store = MetaInfoStore()
-        self._complete_callback(cls, store)
+        if isinstance(store.class, OnDecorate):
+            store.class.on_decorate(cls, cls.__name__)
