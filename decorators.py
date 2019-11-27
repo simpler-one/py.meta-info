@@ -15,12 +15,12 @@ def member_info(store, info):
         func = member.fget if isinstance(member, property) else member
         store.members[func.__name__] = info
         if isinstance(info, OnDecorate):
-            info.on_edcorate(member, __name__)
+            info.on_decorate(member, __name__)
         return member
     return decorator
 
 
-class OnDecotate(ABC):
+class OnDecorate(ABC):
     @abstractmethod
     def on_decorate(self, target, name):
         raise NotImplementedError()

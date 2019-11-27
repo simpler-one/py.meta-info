@@ -6,5 +6,5 @@ M = TypeVar("M")
 
 class MetaInfoStore(Generic[C, M]):
     def __init__(self):
-        self.class: C = None
+        self.cls: C = None
         self.members: Dict[str, M] = {}
