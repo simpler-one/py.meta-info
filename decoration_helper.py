@@ -21,9 +21,9 @@ class DecorationHelper(Generic[C, M]):
     def member_info(self, info):
         return member_info(self._store, info)
 
-    def _on_complete(self, cls):
+    def _on_complete(self, cls, cls_name):
         store = self._store
         setattr(cls, self._name, store)
         self._store = MetaInfoStore()
         if isinstance(store.cls, OnDecorate):
-            store.cls.on_decorate(cls, cls.__name__)
+            store.cls.on_decorate(cls, cls_name)
