@@ -1,6 +1,6 @@
 from typing import TypeVar, Generic
-from decorators import class_info, member_info, OnDecorate
-from meta_info_store import MetaInfoStore
+from .decorators import notify_decoration, member_info, OnDecorate
+from .meta_info_store import MetaInfoStore
 
 C = TypeVar("C")
 M = TypeVar("M")
@@ -12,11 +12,11 @@ class DecorationHelper(Generic[C, M]):
         self._store = MetaInfoStore[C, M]()
 
     def get_store(self, cls):
-        return getattr(cls, self.name, None)
+        return getattr(cls, self._name, None)
     
     def class_info(self, info):
         self._store.cls = info
-        return class_info(self.on_complete)
+        return notify_decoration(self._on_complete)
 
     def member_info(self, info):
         return member_info(self._store, info)
