@@ -1,4 +1,4 @@
-from abc import ABC, abdtractmethod
+from abc import ABC, abstractmethod
 from meta_info_store import MetaInfoStore
 
 
@@ -15,7 +15,7 @@ def member_info(store, info):
         func = member.fget if isinstance(member, property) else member
         store.members[func.__name__] = info
         if isinstance(info, OnDecorate):
-            info.on_decorate(member, __name__)
+            info.on_decorate(member, func.__name__)
         return member
     return decorator
 
