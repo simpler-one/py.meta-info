@@ -13,12 +13,7 @@ class MetaInfoStore(Generic[C, M]):
 
     def inherit(self, parent)
         self.parent = parent
+        self.members = {**parent.members, **self.own_members}
         if isinstance(self.cls, OnInherit):
-            self.cls.on_inherit(parent.
+            self.cls.on_inherit(parent)
 
-
-# TODO: interference
-class OnInherit(ABC):
-    @abstractmethod
-    def on_inherit(self, parent):
-        raise NotImplementedError()
