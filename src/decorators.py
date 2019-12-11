@@ -1,4 +1,4 @@
-from abc import ABC, abstractmethod
+from interferences import OnDecorate
 from meta_info_store import MetaInfoStore
 
 
@@ -11,16 +11,17 @@ def notify_decoration(on_decorate):
 
 
 def member_info(store, info):
+    """
+
+    :param MetaInfoStore store:
+    :param Any info:
+    :return:
+    """
     def decorator(member):
         func = member.fget if isinstance(member, property) else member
+        store.own_members[func.__name__] = info
         store.members[func.__name__] = info
         if isinstance(info, OnDecorate):
             info.on_decorate(member, func.__name__)
         return member
     return decorator
-
-
-class OnDecorate(ABC):
-    @abstractmethod
-    def on_decorate(self, target, name):
-        raise NotImplementedError()

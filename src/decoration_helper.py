@@ -1,5 +1,6 @@
 from typing import TypeVar, Generic
-from .decorators import notify_decoration, member_info, OnDecorate
+from interferences import OnDecorate
+from .decorators import notify_decoration, member_info
 from .meta_info_store import MetaInfoStore
 
 C = TypeVar("C")
