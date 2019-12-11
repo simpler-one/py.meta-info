@@ -7,4 +7,18 @@ M = TypeVar("M")
 class MetaInfoStore(Generic[C, M]):
     def __init__(self):
         self.cls: C = None
+        self.own_members: Dict[str, M] = {}
         self.members: Dict[str, M] = {}
+        self.parent: MetaInfoStore or None = None
+
+    def inherit(self, parent)
+        self.parent = parent
+        if isinstance(self.cls, OnInherit):
+            self.cls.on_inherit(parent.
+
+
+# TODO: interference
+class OnInherit(ABC):
+    @abstractmethod
+    def on_inherit(self, parent):
+        raise NotImplementedError()
