@@ -1,5 +1,5 @@
 from typing import TypeVar, Generic, Dict
-from interferences import OnInherit
+from interfaces import OnInherit
 
 C = TypeVar("C")
 M = TypeVar("M")
