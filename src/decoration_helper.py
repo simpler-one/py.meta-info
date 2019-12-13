@@ -14,6 +14,11 @@ class DecorationHelper(Generic[C, M]):
         self._store = MetaInfoStore[C, M]()
 
     def get_store(self, cls):
+        """
+
+        :param type cls:
+        :rtype: MetaInfoStore[C, M]
+        """
         return getattr(cls, self._name, None)
     
     def class_info(self, info):
