@@ -1,5 +1,8 @@
-from interferences import OnDecorate
+from typing import TypeVar
+from interfaces import OnDecorate
 from meta_info_store import MetaInfoStore
+
+M = TypeVar("M")
 
 
 def notify_decoration(on_decorate):
@@ -13,8 +16,8 @@ def notify_decoration(on_decorate):
 def member_info(store, info):
     """
 
-    :param MetaInfoStore store:
-    :param Any info:
+    :param MetaInfoStore[Any, M] store:
+    :param M info:
     :return:
     """
     def decorator(member):
