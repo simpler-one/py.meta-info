@@ -1,5 +1,5 @@
 from typing import TypeVar, Generic
-from interferences import OnDecorate
+from interfaces import OnDecorate
 from .decorators import notify_decoration, member_info
 from .meta_info_store import MetaInfoStore
 
@@ -8,9 +8,10 @@ M = TypeVar("M")
 
 
 class DecorationHelper(Generic[C, M]):
-    def __init__(self, name):
+    def __init__(self, name, inherit):
         self._name = name
         self._store = MetaInfoStore[C, M]()
+        self._inherit = inherit
 
     def get_store(self, cls):
         return getattr(cls, self._name, None)
@@ -24,7 +25,12 @@ class DecorationHelper(Generic[C, M]):
 
     def _on_complete(self, cls, cls_name):
         store = self._store
+        parent = getattr(cls, self._name, None)
         setattr(cls, self._name, store)
         self._store = MetaInfoStore()
+
         if isinstance(store.cls, OnDecorate):
             store.cls.on_decorate(cls, cls_name)
+
+        if self._inherit and parent is not None:
+            store.inherit(parent)
