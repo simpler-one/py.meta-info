@@ -8,10 +8,10 @@ M = TypeVar("M")
 
 
 class DecorationHelper(Generic[C, M]):
-    def __init__(self, name, inherit):
+    def __init__(self, name, *, inherit=True):
         self._name = name
-        self._store = MetaInfoStore[C, M]()
         self._inherit = inherit
+        self._store = MetaInfoStore[C, M]()
 
     def get_store(self, cls):
         return getattr(cls, self._name, None)
