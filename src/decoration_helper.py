@@ -9,19 +9,26 @@ M = TypeVar("M")
 
 class DecorationHelper(Generic[C, M]):
     def __init__(self, name, *, inherit=True):
+        """
+        :param str name: Store name. Classes decorated will be set store as this name
+        :param bool inherit: Inherit parent store 
+        """
         self._name = name
         self._inherit = inherit
         self._store = MetaInfoStore[C, M]()
 
     def get_store(self, cls):
         """
-
+        Get store from class
         :param type cls:
         :rtype: MetaInfoStore[C, M]
         """
         return getattr(cls, self._name, None)
     
     def class_info(self, info):
+        """
+        :param C info:
+        """
         self._store.cls = info
         return notify_decoration(self._on_complete)
 
