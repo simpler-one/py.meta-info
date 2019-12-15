@@ -22,20 +22,35 @@ class DecorationHelper(Generic[C, M]):
         Get store from class
         :param type cls:
         :rtype: MetaInfoStore[C, M]
+        :return: Store
         """
         return getattr(cls, self._name, None)
     
     def class_info(self, info):
         """
+        Create class decorator
         :param C info:
+        :rtype: (type) -> type
+        :return: Class decorator
         """
         self._store.cls = info
         return notify_decoration(self._on_complete)
 
     def member_info(self, info):
+        """
+        Create member decorator
+        :param M info:
+        :rtype: (callable or property) -> callable or property
+        :return: Member decorator
+        """
         return member_info(self._store, info)
 
     def _on_complete(self, cls, cls_name):
+        """
+        Handle event
+        :param type cls:
+        :param str cls_name:
+        """
         store = self._store
         parent = getattr(cls, self._name, None)
         setattr(cls, self._name, store)
