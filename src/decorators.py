@@ -6,6 +6,10 @@ M = TypeVar("M")
 
 
 def notify_decoration(on_decorate):
+    """
+    Notify OnDecorate event
+    :param on_decorate: OnDecorate event handler
+    """
     def decorator(target):
         if callable(on_decorate):
             on_decorate(target, target.__name__)
@@ -15,10 +19,9 @@ def notify_decoration(on_decorate):
 
 def member_info(store, info):
     """
-
-    :param MetaInfoStore[Any, M] store:
-    :param M info:
-    :return:
+    Append member info
+    :param MetaInfoStore[Any, M] store: store
+    :param M info: info
     """
     def decorator(member):
         func = member.fget if isinstance(member, property) else member
